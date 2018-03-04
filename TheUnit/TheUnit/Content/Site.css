@@ -42,6 +42,10 @@ a {
     color: #404040;
 }
 
+    a:hover {
+        text-decoration: none;
+    }
+
 address {
     font-size: 14px;
 }
@@ -62,6 +66,7 @@ footer {
 }
 
 header > div {
+    z-index: 500;
     height: 60px;
     line-height: 60px;
     font-weight: bold;
@@ -72,6 +77,14 @@ header > div {
 
 header > div + div {
     border-right: 0;
+}
+
+header p {
+    line-height: normal;
+    font-weight: 300;
+    text-transform: none;
+    font-size: 16px;
+    font-family: 'Open Sans',sans-serif;
 }
 
 footer > div {
@@ -86,11 +99,11 @@ footer > div + div {
 
 /********** HEADER RESPONSIVE**********/
 
-@media (min-width:568px) {
+@media (min-width:576px) {
     header {
         position: fixed;
         top: 0;
-        z-index: 999;
+        z-index: 50;
         width: 540px;
     }
 
@@ -127,72 +140,56 @@ footer > div + div {
     cursor: pointer;
 }
 
-#account-btn.active, #search-btn.active {
+#account, #search {
+    z-index: 499;
+    width: 100%;
     height: auto;
-}
-
-#account, #search{
     border-top: 1px solid #ECECEC;
-    display: none;
+    border-bottom: 5px solid #404040;
     padding: 15px;
+    background-color: #FFF;
+    transition: 1s;
+    display: none;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: none;
 }
 
-#account.active, #search.active {
-    display: block;
-}
-
-@media (min-width: 568px) {
-
-    #account-btn.active, #search-btn.active {
-        height: 60px;
-    }
-
-    #account, #search {
-        border: 1px solid #ECECEC;
-        border-top: 0px;
-        background: #FFF;
+    #account.active, #search.active {
+        transition: 1s;
         display: block;
+    }
+
+    #account.active {
         position: absolute;
-        top: -100%;
-        width: 540px;
-        z-index: -1;
-        transition-property: top;
-        transition: top 1s ease;
+        top: 180px;
+        z-index: 501;
     }
 
-    #account {
-        left: -1px;
-    }
 
-    #search {
-        left: calc(-100% - 2px);
+
+@media (min-width: 576px){
+    #account, #search {
+        display: block;
+        border: 1px solid #ECECEC;
+        border-top: 0;
+        border-bottom: 5px solid #404040;
+        padding: 15px;
+        background-color: #FFF;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: 1s;
     }
 
         #account.active, #search.active {
-            top: 60px;
-            transition: top 1s ease;
+            top: auto;
+            -webkit-transform: translateY(100%);
+            -moz-transform: translateY(100%);
+            transition: 1s;
+            z-index: 499;
         }
-}
-
-@media (min-width: 768px) {
-
-    #account, #search {
-        width: 720px;
-    }
-}
-
-@media (min-width: 992px) {
-
-    #account, #search {
-        width: 960px;
-    }
-}
-
-@media (min-width: 1200px) {
-
-    #account, #search {
-        width: 1140px;
-    }
 }
 
 /********** ADVERTISING **********/
@@ -256,11 +253,22 @@ footer, .ads {
     margin: 0;
 }
 
-
-.tel a {
-    font-size: 27px;
-    font-weight: 900;
-}
+    .logo a {
+        font-family: 'Lato', sans-serif;
+        color: inherit;
+        text-transform: uppercase;
+        font-size: 34px;
+        font-weight: 900;
+        display: block;
+        margin: 0 0 0 -15px;
+        width: calc(100% + 30px);
+        height: 100%;
+    }
+   
+    .tel a {
+        font-size: 27px;
+        font-weight: 900;
+    }
 
 /********** NAVIGATION **********/
 nav ul {

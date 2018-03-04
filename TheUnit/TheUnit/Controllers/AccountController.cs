@@ -73,12 +73,18 @@ namespace TheUnit.Controllers
                 return View(model);
             }
 
+            var user = UserManager.Find(model.Email, model.Password);
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+                    if(User.IsInRole("Admin"))
+                    {
+                        RedirectToAction("Index", "Please");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -153,8 +159,9 @@ namespace TheUnit.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                var resultRole = UserManager.AddToRole(user.Id, "Customer");
                 if (result.Succeeded)
-                {
+                { 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
